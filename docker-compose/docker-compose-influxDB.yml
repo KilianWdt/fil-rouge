@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+    influxdb:
+        image: "influxdb"
+        hostname: "influxdb"
+        ports:
+            - "8086:8086"
+        networks:
+            - iot-labs
+        labels:
+            NAME: "influxdb"
+    influxdbchrono:
+        image: "chronograf"
+        hostname: "chronograf"
+        ports:
+            - "8087:8888"
+        networks:
+            - iot-labs
+        labels:
+            NAME: "chronograf"
+        command: "--influxdb-url=http://influxdb:8086"
+networks:
+    iot-labs:
+        external: true

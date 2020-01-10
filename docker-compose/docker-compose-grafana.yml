@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+    grafana:
+        image: "grafana/grafana"
+        hostname: "grafana"
+        environment:
+            GF_SECURITY_ADMIN_PASSWORD: "secret"
+        ports:
+            - "8084:3000"
+        networks:
+            - iot-labs
+        labels:
+            NAME: "grafana"
+networks:
+    iot-labs:
+        external: true

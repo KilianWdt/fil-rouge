@@ -1,0 +1,49 @@
+version: '3.7'
+services:
+    moke1:
+        image: "pcourbin/mock-data-generator:latest"
+        hostname: "moke1"
+        environment:
+            SENZING_SUBCOMMAND: random-to-rabbitmq
+            SENZING_RANDOM_SEED: 0
+            SENZING_RECORD_MIN: 1
+            SENZING_RECORD_MAX: 60
+            SENZING_RECORDS_PER_SECOND: 1
+            SENZING_RABBITMQ_HOST: rabbitmq
+            SENZING_RABBITMQ_PASSWORD: rabbitmq
+            SENZING_RABBITMQ_USERNAME: rabbitmq
+            SENZING_RABBITMQ_QUEUE: capteurTemperature
+            MIN_VALUE: 15
+            MAX_VALUE: 28
+            SENZING_DATA_TEMPLATE: '{"SENSOR":"capteurTemperature","DATE":"date_now", "VALUE":"float"}'
+        tty: true
+        labels:
+            NAME: "moke1"
+        networks:
+            - iot-labs
+
+    moke2:
+        image: "pcourbin/mock-data-generator:latest"
+        hostname: "moke2"
+        environment:
+            SENZING_SUBCOMMAND: random-to-rabbitmq
+            SENZING_RANDOM_SEED: 0
+            SENZING_RECORD_MIN: 1
+            SENZING_RECORD_MAX: 60
+            SENZING_RECORDS_PER_SECOND: 1
+            SENZING_RABBITMQ_HOST: rabbitmq
+            SENZING_RABBITMQ_PASSWORD: rabbitmq
+            SENZING_RABBITMQ_USERNAME: rabbitmq
+            SENZING_RABBITMQ_QUEUE: capteurPuissanceBallonEau
+            MIN_VALUE: 400
+            MAX_VALUE: 1200
+            SENZING_DATA_TEMPLATE: '{"SENSOR":"capteurPuissanceBallonEau","DATE":"date_now", "VALUE":"integer"}'
+        tty: true
+        labels:
+            NAME: "moke2"
+        networks:
+            - iot-labs
+
+networks:
+    iot-labs:
+        external: true

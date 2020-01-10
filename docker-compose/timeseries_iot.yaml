@@ -1,0 +1,41 @@
+     openapi: 3.0.0
+     info:
+       title: TimeSeries API IoT
+       description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+       version: 0.42
+     servers:
+       - url: http://localhost:8080/v1
+         description: Optional server description, e.g. Internal staging server for testing
+       - url: http://api.example.com/v1
+         description: Optional server description, e.g. Main (production) server
+     paths:
+       /mean/{sensorId}:
+         get:
+           summary: Calculer la moyenne d'un capteur entre deux dates
+           description: Optional extended description in CommonMark or HTML.
+           parameters:
+             - in: path
+               name: sensorId
+               schema:
+                 type: string
+               required: true
+               description: String Id of the sensor to get
+             - in: query
+               name: startDate
+               schema:
+                 type: integer
+               description: Integer/timestamp of the start date
+             - in: query
+               name: endDate
+               schema:
+                 type: integer
+               description: Integer/timestamp of the end date
+           responses:
+             '200':    # status code
+               description: A JSON array of the mean of values between start and end dates
+               content:
+                 application/json:
+                   schema:
+                     type: array
+                     items:
+                       type: integer
